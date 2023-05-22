@@ -17,7 +17,7 @@
 #include "sfud.h"
 #include "drv_spi.h"
 #include "spi_flash.h"
-#include "tc_utils.h"
+#include "common.h"
 
 // spi bus name
 #ifdef FLASH_SPI
@@ -77,7 +77,7 @@ static int mnt_init()
         mkfs(FLASH_OC_FS, FLASH_OC_DEVICE);
         kprintf("tried format flash device\n");
         kprintf("reset device!\n");
-        mdelay(3000);
+        mdelay(10000);
         reboot();
     }
     return 0;

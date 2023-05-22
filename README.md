@@ -13,3 +13,7 @@
 
 ## 编译使用
 施工中...
+
+
+## 技术参考&使用
+[1] [loogg/AT32F437_Boot](https://github.com/loogg/AT32F437_Boot)
