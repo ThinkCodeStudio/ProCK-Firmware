@@ -14,6 +14,11 @@
 ## 编译使用
 施工中...
 
+## 片上接口
+[1] QSPI [flash]
+
+## 软件库
+[1] [agile_upgrade](https://github.com/loogg/agile_upgrade)
 
 ## 技术参考&使用
 [1] [loogg/AT32F437_Boot](https://github.com/loogg/AT32F437_Boot)

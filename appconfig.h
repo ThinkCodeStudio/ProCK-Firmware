@@ -10,19 +10,30 @@
 #ifndef APPLICATIONS_APPCONFIG_H_
 #define APPLICATIONS_APPCONFIG_H_
 
+#include "rtconfig.h"
+
 /**     chip        **/
 #define AT32F435
 
 /**     app         **/
 #define BOOTLOADER
-#define BOOT_APP_ADDR      0x08010000UL
-#define BOOT_BKP           ERTC_DT15
+
+
+/**     config      **/
+
+#define BOOT_BKP                        ERTC_DT15
+#define APP_ADDR                        0x80000UL
+#define APP_SIZE                        0x80000UL
+#define APP_PART_NAME                   "app"
 
 /**     module      **/
-
+#ifndef BOOTLOADER
+#undef PKG_USING_AGILE_UPGRADE
+//#undef RT_USING_FAL
+#endif
 
 /**     device      **/
-#ifndef BOOTLOADER
+
 //#define FLASH_SPI
 #define FLASH_QSPI
 #define FLASH_SPI_PORT          "1"
@@ -31,7 +42,6 @@
 #define FLASH_OC_DEVICE         "ecf"
 #define FLASH_OC_FS             "elm"
 #define FLASH_OC_PATH           "/"
-#endif
 
 
 #endif /* APPLICATIONS_APPCONFIG_H_ */
