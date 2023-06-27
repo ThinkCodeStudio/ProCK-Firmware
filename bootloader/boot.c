@@ -10,7 +10,7 @@
 
 #include "appconfig.h"
 
-#if defined BOOTLOADER && defined AT32F435
+#if defined BOOTLOADER && defined AT32
 #include "common.h"
 #include <stdio.h>
 #include "drv_common.h"
@@ -55,11 +55,11 @@ void boot_start_application(void)
     app_func();
 }
 
-void boot_upgrade()
+void boot_upgrade(const char *src_path)
 {
     agile_upgrade_t src_agu = { 0 };
     src_agu.name = "src";
-    src_agu.user_data = "/src.rbl";
+    src_agu.user_data = src_path;
     src_agu.ops = &agile_upgrade_file_ops;
 
     agile_upgrade_t dst_agu = { 0 };
@@ -72,12 +72,28 @@ void boot_upgrade()
     boot_app_enable();
 }
 
+#ifdef BOOTLOADER_CMD
+#include <string.h>
 static int boot(int argc, char **argv)
 {
-    boot_upgrade();
+    if(argc > 1 && (!strcmp(argv[1],"-g") || !strcmp(argv[1],"upgrade"))){
+        if(argc > 2)
+        {
+            boot_upgrade(argv[2]);
+        }
+        else{
+            boot_upgrade("/sec.rbl");
+        }
+    }
+    else{
+        kprintf("-g\t upgrade [p]\t upgrade app, p is path of rbl file, default sec.rbl");
+    }
+
     return 0;
 }
 MSH_CMD_EXPORT(boot, the tool for upgrade firmware);
+#endif
+
 #else
 void boot_start_application(void)
 {}

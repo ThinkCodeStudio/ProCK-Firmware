@@ -12,11 +12,18 @@
 
 #include "rtconfig.h"
 
+/**     series      **/
+//#define STM32
+#define AT32
+
 /**     chip        **/
 #define AT32F435
 
 /**     app         **/
-#define BOOTLOADER
+//#define BOOTLOADER
+
+/**     cmd         **/
+#define BOOTLOADER_CMD
 
 
 /**     config      **/
@@ -30,6 +37,9 @@
 #ifndef BOOTLOADER
 #undef PKG_USING_AGILE_UPGRADE
 //#undef RT_USING_FAL
+#else
+#undef PKG_USING_PIKASCRIPT
+#undef PKG_USING_RT_VSNPRINTF_FULL
 #endif
 
 /**     device      **/

@@ -15,14 +15,22 @@
 #define DBG_LVL DBG_LOG
 #include <rtdbg.h>
 #include <fal.h>
+#include "common.h"
 
 int main(void)
 {
 #ifdef BOOTLOADER
     fal_init();
 #else
+
     int pin = rt_pin_get("PB.5");
     rt_pin_mode(pin, PIN_MODE_OUTPUT_OD);
+    u8 data0[8] = {0};
+    u8 data1[8] = {0x00, 0x00, 0x16, 0x00, 0x00, 0x00, 0x00, 0x00};
+    static rt_device_t hidd;
+    hidd = rt_device_find("hidd");
+    rt_device_open(hidd, RT_DEVICE_OFLAG_RDWR);
+    rt_thread_mdelay(5000);
 #endif
     while (1)
     {
@@ -30,9 +38,11 @@ int main(void)
         rt_thread_mdelay(10000);
 #else
 //        LOG_D("Hello RT-Thread!");
-        rt_pin_write(pin, 1);
+//        rt_pin_write(pin, 1);
+        rt_device_write(hidd, 1, data0, 8);
         rt_thread_mdelay(1000);
-        rt_pin_write(pin, 0);
+//        rt_pin_write(pin, 0);
+        rt_device_write(hidd, 1, data1, 8);
         rt_thread_mdelay(1000);
 #endif
     }

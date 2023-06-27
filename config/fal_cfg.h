@@ -15,6 +15,8 @@
 #include <board.h>
 #include "appconfig.h"
 
+#ifdef AT32
+
 extern const struct fal_flash_dev at32_onchip_flash;
 
 #define FAL_FLASH_DEV_TABLE                                          \
@@ -29,6 +31,8 @@ extern const struct fal_flash_dev at32_onchip_flash;
 {                                                                                       \
     {FAL_PART_MAGIC_WROD, APP_PART_NAME,"onchip_flash", APP_ADDR, APP_SIZE, 0}, \
 }
+
+#endif
 
 #endif /* FAL_PART_HAS_TABLE_CFG */
 #endif /* _FAL_CFG_H_ */

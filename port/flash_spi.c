@@ -28,10 +28,6 @@
 
 #define FLASH_SPI_ATTACH        FLASH_SPI_BUS"0"
 #define FLASH_SPI_CS            GET_PIN(FLASH_SPI_CS_GPIO, FLASH_SPI_CS_PIN)
-#define SPI_CS_GPIOX(x)         GPIO##x
-#define SPI_CS_PINX(x)          GPIO_PINS_##x
-#define FLASH_SPI_CS_GPIOX(x)   SPI_CS_GPIOX(x)
-#define FLASH_SPI_CS_PINX(x)    SPI_CS_PINX(x)
 
 
 /**
@@ -42,7 +38,7 @@ static int rt_hw_spi_flash_init()
 {
 #ifdef FLASH_SPI
     extern rt_err_t rt_hw_spi_device_attach(const char *bus_name, const char *device_name, gpio_type *cs_gpiox, uint16_t cs_gpio_pin);
-    rt_hw_spi_device_attach(FLASH_SPI_BUS, FLASH_SPI_ATTACH, FLASH_SPI_CS_GPIOX(FLASH_SPI_CS_GPIO), FLASH_SPI_CS_PINX(FLASH_SPI_CS_PIN));
+    rt_hw_spi_device_attach(FLASH_SPI_BUS, FLASH_SPI_ATTACH, GPIOx(FLASH_SPI_CS_GPIO), PINx(FLASH_SPI_CS_PIN));
 #else
     extern rt_err_t at32_qspi_bus_attach_device(const char *bus_name, const char *device_name, rt_uint32_t pin, rt_uint8_t data_line_width, void (*enter_qspi_mode)(), void (*exit_qspi_mode)());
     at32_qspi_bus_attach_device(FLASH_SPI_BUS, FLASH_SPI_ATTACH, FLASH_SPI_CS, 4, RT_NULL, RT_NULL);
